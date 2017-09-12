@@ -1,7 +1,7 @@
 ---
 title: "STAT/MATH 495: Problem Set 01"
-author: "WRITE YOUR NAME HERE"
-date: "`r format(Sys.time(), '%B %d, %Y')`"
+author: "Jeff Lancaster"
+date: "2017-09-07"
 output:
   html_document:
     toc: true
@@ -11,11 +11,27 @@ output:
     smooth_scroll: false
 ---
 
-```{r setup, include=FALSE}
+```{r setup,warning=FALSE}
 knitr::opts_chunk$set(echo = TRUE, fig.width=8, fig.height=4.5)
 
 # Load packages
 library(tidyverse)
+library(utils)
+train <- read_csv("https://rudeboybert.github.io/STAT495/static/Titanic/train.csv")
+test <- read_csv("https://rudeboybert.github.io/STAT495/static/Titanic/test.csv")
+
+
+glimpse(train)
+glimpse(test)
+
+#View(train)
+#View(test)
+
+
+step1 <- mutate(test, survived=(as.integer((test$PassengerId)>1000)))
+submission<-subset(step1,select=c(1,as.numeric(12)))
+write.csv(submission,file="submission.csv",row.names=FALSE,col.names=TRUE)
+
 ```
 
 
